@@ -21,7 +21,7 @@ systemctl enable mongod pritunl
 # Install Squid
 apt-get -y install squid3
 cp /etc/squid3/squid.conf /etc/squid3/squid.conf.orig
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/zero9911/pritunl/master/conf/squid.conf" 
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/kenzolan/test/master/conf/squid.conf" 
 MYIP=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | grep -v '192.168'`;
 sed -i s/xxxxxxxxx/$MYIP/g /etc/squid3/squid.conf;
 service squid3 restart
@@ -39,11 +39,11 @@ apt-get -y install nginx php5-fpm php5-cli
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/zero9911/pritunl/master/conf/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/kenzolan/test/master/conf/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<pre>Setup by MKSSHVPN </pre>" > /home/vps/public_html/index.html
 echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/zero9911/pritunl/master/conf/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/kenzolan/test/master/conf/vps.conf"
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
 service php5-fpm restart
 service nginx restart
@@ -74,8 +74,7 @@ echo "-Pritunl"
 echo "-MongoDB"
 echo "-Vnstat"
 echo "-Web Server"
-echo "-Squid Proxy Port 7166,60000"
-echo "BY MKSSHVPN"
+echo "-Squid Proxy Port 7166,60000,8080"
 echo "TimeZone   :  Malaysia"
 echo "Vnstat     :  http://$MYIP:81/vnstat"
 echo "Pritunl    :  https://$MYIP"
